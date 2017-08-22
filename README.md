@@ -1,2 +1,2 @@
 # todools
-Tools for using Sublime Text 3 for a todo.txt
+Tools for editing todo.txt in Sublime Text 3
