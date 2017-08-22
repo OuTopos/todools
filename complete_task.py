@@ -7,19 +7,19 @@ class CompleteTaskCommand(sublime_plugin.TextCommand):
 
 		revert_all = True
 
-		line_offset = 0
 		for selection in sel:
+			line_offset = 0
 			lines = view.lines(selection)
 			for line in lines:
 				adjusted_line = sublime.Region(line.a + line_offset, line.b + line_offset)
-				if view.substr(adjusted_line).strip()[:2] != "x ":
+				if view.substr(adjusted_line)[:2] != "x ":
 					revert_all = False
 					line_offset += view.insert(edit, adjusted_line.a, "x ")
 
 		if revert_all:
 
-			line_offset = 0
 			for selection in sel:
+				line_offset = 0
 				lines = view.lines(selection)
 				for line in lines:
 					adjusted_line = sublime.Region(line.a + line_offset, line.b + line_offset)
