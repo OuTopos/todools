@@ -1,5 +1,5 @@
 [
-	{ "keys": ["alt+f1"], "command": "create_task"},
+	{ "keys": ["alt+n"], "command": "add_prefix"},
 	{ "keys": ["alt+x"], "command": "complete_task"},
 	{ "keys": ["alt+up"], "command": "increase_priority"},
 	{ "keys": ["alt+down"], "command": "decrease_priority"}
