@@ -1,0 +1,6 @@
+[
+	{ "keys": ["alt+f1"], "command": "create_task"},
+	{ "keys": ["alt+x"], "command": "complete_task"},
+	{ "keys": ["alt+f"], "command": "decrease_priority"},
+	{ "keys": ["alt+r"], "command": "increase_priority"}
+]
