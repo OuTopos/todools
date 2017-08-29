@@ -1,4 +1,5 @@
 import sublime, sublime_plugin, time
+import helper
 
 class AddPrefixCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
