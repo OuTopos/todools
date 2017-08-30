@@ -1,13 +1,15 @@
 import sublime, sublime_plugin, time
 import helper
 
+print("ADD PREFIX!")
+
 class AddPrefixCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
 		view = self.view
 		sel = self.view.sel()
 
 		for selection in sel:
-			line_offset = 0
+			line_offset =  0
 			lines = view.lines(selection)
 			for line in lines:
 				task = "(A) " + time.strftime("%Y-%m-%d ")
@@ -17,6 +19,8 @@ class AddPrefixCommand(sublime_plugin.TextCommand):
 				line_offset += view.insert(edit, adjusted_line.a, task)
 
 		#sel.clear()
+
+		asd = "asdn"
 		#sel.add(sublime.Region(0, 0))
 		
 		#task = "(A) " + time.strftime("%Y-%m-%d") + " \n"
