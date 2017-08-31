@@ -1,4 +1,5 @@
 import sublime, sublime_plugin
+from .helper import Task
 
 class CompleteTaskCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
@@ -12,9 +13,12 @@ class CompleteTaskCommand(sublime_plugin.TextCommand):
 			lines = view.lines(selection)
 			for line in lines:
 				adjusted_line = sublime.Region(line.a + line_offset, line.b + line_offset)
-				if view.substr(adjusted_line)[:2] != "x ":
+				task = Task(view.substr(adjusted_line))
+				if not task.completed:
 					revert_all = False
-					line_offset += view.insert(edit, adjusted_line.a, "x ")
+					task.set_completed()
+					view.replace(edit, adjusted_line, task.string)
+					line_offset += task.offset
 
 		if revert_all:
 
@@ -23,6 +27,7 @@ class CompleteTaskCommand(sublime_plugin.TextCommand):
 				lines = view.lines(selection)
 				for line in lines:
 					adjusted_line = sublime.Region(line.a + line_offset, line.b + line_offset)
-					erase_region = sublime.Region(adjusted_line.a, adjusted_line.a + 2)
-					view.erase(edit, erase_region)
-					line_offset -= 2
+					task = Task(view.substr(adjusted_line))
+					task.set_completed(False)
+					view.replace(edit, adjusted_line, task.string)
+					line_offset += task.offset

@@ -1,6 +1,5 @@
 import sublime, sublime_plugin
-
-priorities = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+from .helper import Task
 
 class IncreasePriorityCommand(sublime_plugin.TextCommand):
 
@@ -13,10 +12,11 @@ class IncreasePriorityCommand(sublime_plugin.TextCommand):
 			lines = view.lines(selection)
 			for line in lines:
 				adjusted_line = sublime.Region(line.a + line_offset, line.b + line_offset)
-				if view.substr(adjusted_line)[:2] != "x ":
-					if view.substr(adjusted_line)[0:1] + view.substr(adjusted_line)[2:3] == "()":
-						prio = int(priorities.find(view.substr(adjusted_line)[1:2]))
-						prio -= 1
-						if prio < 0:
-							prio = len(priorities) - 1
-						view.replace(edit, sublime.Region(adjusted_line.a + 1, adjusted_line.a + 2), priorities[prio:prio + 1])
+				task = Task(view.substr(adjusted_line))
+				if not task.completed:
+					if task.priority:
+						task.priority += 1
+					else:
+						task.priority_letter = "A"
+					view.replace(edit, adjusted_line, task.string)
+					line_offset += task.offset
