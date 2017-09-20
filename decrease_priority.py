@@ -19,7 +19,7 @@ class DecreasePriorityCommand(sublime_plugin.TextCommand):
 				adjusted_line = sublime.Region(line.a + line_offset, line.b + line_offset)
 				task = Task(view.substr(adjusted_line))
 				if not task.completed:
-					if task.priority:
+					if task.priority != None:
 						task.priority -= 1
 					else:
 						task.priority_letter = "A"

@@ -13,7 +13,8 @@ class Task():
 	def set_completed(self, completed=True):
 		if completed:
 			self.completed = True
-			self.completion_date = time.strftime("%Y-%m-%d")
+			if self.creation_date:
+				self.completion_date = time.strftime("%Y-%m-%d")
 		else:
 			self.completed = False
 			self.completion_date = None
